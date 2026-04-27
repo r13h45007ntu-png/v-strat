@@ -912,6 +912,23 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
+// ==================== API KEY STORAGE ====================
+function loadApiKey() {
+  const saved = localStorage.getItem('vstrat_api_key');
+  if (saved) document.getElementById('api-key-input').value = saved;
+}
+function saveApiKey() {
+  const key = document.getElementById('api-key-input').value.trim();
+  if (key) localStorage.setItem('vstrat_api_key', key);
+}
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('api-key-input');
+  if (input) {
+    loadApiKey();
+    input.addEventListener('blur', saveApiKey);
+  }
+});
+
 // ==================== INIT ====================
 window.addEventListener('load', () => {
   setTimeout(() => { initCourt(); renderPlayerLists(); }, 100);
